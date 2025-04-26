@@ -1,0 +1,14 @@
+# Environment Secrets
+.env
+
+# Virtual Environment
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Cursor Rules
+.cursorrules
+.cursorignore
+.cursorrules/
