@@ -1,0 +1,7 @@
+Add ticket operations to TeamDynamix CLI
+
+- Expanded README.md to include ticket operations such as searching, viewing details, creating tickets, and adding comments.
+- Implemented ticket operations in teamdynamix_cli.py, integrating the new TicketsClient and corresponding commands.
+- Created tickets module with client and command functionalities for managing tickets.
+- Added display functions for ticket information and history in the new display.py file.
+- Enhanced user interface to support ticket operations in the CLI.
