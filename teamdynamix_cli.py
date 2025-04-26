@@ -11,11 +11,19 @@ from dotenv import load_dotenv
 # Import modules from the package
 from teamdynamix.auth.client import AuthClient
 from teamdynamix.people.client import PeopleClient
+from teamdynamix.tickets.client import TicketsClient
 from teamdynamix.people.commands import (
     search_people_command,
     get_person_details_command,
     get_person_by_username_command,
     get_uid_by_username_command,
+)
+from teamdynamix.tickets.commands import (
+    search_tickets_command,
+    get_ticket_command,
+    create_ticket_command,
+    create_ticket_comment_command,
+    select_application_command,
 )
 from teamdynamix.utils.cli import clear_screen
 
@@ -24,6 +32,7 @@ def main_menu(auth):
     """Display the main menu and handle user selection"""
     # Initialize clients
     people_client = PeopleClient(auth)
+    tickets_client = TicketsClient(auth)
 
     while True:
         clear_screen()
@@ -40,16 +49,23 @@ def main_menu(auth):
         print(f"User: {user_name}")
 
         print("-" * 40)
+        print("PEOPLE OPERATIONS:")
         print("1. Search for People")
         print("2. Get Person Details by UID")
         print("3. Get Person Details by Username")
         print("4. Get UID by Username")
-        print("5. Switch Environment")
-        print("0. Exit")
+        print()
+        print("TICKET OPERATIONS:")
+        print("5. Ticket Operations")
+        print()
+        print("SYSTEM:")
+        print("S. Switch Environment")
+        print("X. Exit")
         print()
 
-        choice = input("Select an option [0-5]: ").strip()
+        choice = input("Select an option: ").strip().lower()
 
+        # People operations
         if choice == "1":
             search_people_command(people_client)
         elif choice == "2":
@@ -58,9 +74,15 @@ def main_menu(auth):
             get_person_by_username_command(people_client)
         elif choice == "4":
             get_uid_by_username_command(people_client)
+
+        # Ticket operations
         elif choice == "5":
+            select_application_command(tickets_client)
+
+        # System operations
+        elif choice == "s":
             return True  # Signal to switch environment
-        elif choice == "0":
+        elif choice == "x":
             return False  # Signal to exit
         else:
             print("Invalid selection. Please try again.")

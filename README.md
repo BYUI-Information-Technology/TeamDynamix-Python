@@ -10,6 +10,12 @@ An interactive command-line interface for working with the TeamDynamix API.
   - Retrieve detailed person information by UID
   - Look up people by username
   - Get UIDs by username
+- Ticket operations:
+  - Search for tickets with various filters
+  - View detailed ticket information
+  - View ticket history and comments
+  - Create new tickets
+  - Add comments to existing tickets
 - Easy to extend with new modules and functionality
 
 ## Project Structure
@@ -25,11 +31,14 @@ TeamDynamixAPIs/
 │   │   ├── __init__.py
 │   │   ├── client.py           # People API client
 │   │   └── commands.py         # CLI commands for people operations
-│   ├── tickets/                # Tickets operations module (future)
-│   │   └── __init__.py
+│   ├── tickets/                # Tickets operations module
+│   │   ├── __init__.py
+│   │   ├── client.py           # Tickets API client
+│   │   └── commands.py         # CLI commands for ticket operations
 │   └── utils/                  # Utility functions
 │       ├── __init__.py
-│       └── cli.py              # CLI utilities
+│       ├── cli.py              # General CLI utilities
+│       └── tickets.py          # Ticket-specific utilities
 ├── teamdynamix_auth.py         # Base TeamDynamix authentication class
 ├── teamdynamix_cli.py          # Main CLI script
 ├── requirements.txt            # Dependencies
@@ -73,6 +82,21 @@ The tool will prompt you to:
 1. Select an environment (Sandbox or Production)
 2. Authenticate to the TeamDynamix API
 3. Display a menu of available operations
+
+### People Operations
+
+- Search for people by name, email, or other identifiers
+- View detailed person information including custom attributes
+- Look up people by username
+- Get UIDs by username
+
+### Ticket Operations
+
+- Search for tickets with filters for title, status, requestor, etc.
+- View detailed ticket information
+- View ticket history and comments
+- Create new tickets
+- Add comments to existing tickets
 
 ## Extending the Tool
 
