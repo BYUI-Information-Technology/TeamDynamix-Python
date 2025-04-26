@@ -9,6 +9,6 @@ __pycache__/
 *.pyc
 
 # Cursor Rules
-.cursorrules
+.cursor
 .cursorignore
-.cursorrules/
+.cursor/
