@@ -12,3 +12,8 @@ __pycache__/
 .cursor
 .cursorignore
 .cursor/
+
+# Archives
+.archive/*
+archive/
+archive/*
