@@ -1,3 +1,0 @@
-0000000000000000000000000000000000000000 20f35e8f85dc15f7f37fe708549e5b04205718dc Ron Vallejo <atreyu4evr@pm.me> 1745703389 -0600	commit (initial): Add initial implementation of TeamDynamix API Application
-20f35e8f85dc15f7f37fe708549e5b04205718dc 901d63d72e7d4d715af113927f6c686923fb205f Ron Vallejo <atreyu4evr@pm.me> 1745703716 -0600	commit: Update .gitignore to correct cursor rules entries
-901d63d72e7d4d715af113927f6c686923fb205f 34e2199e8f2a5d0036a57d4b969af555ba2e9607 Ron Vallejo <atreyu4evr@pm.me> 1745706447 -0600	commit: Add ticket operations to TeamDynamix CLI
