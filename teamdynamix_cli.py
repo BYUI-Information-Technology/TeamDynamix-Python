@@ -7,6 +7,10 @@ An interactive CLI for working with the TeamDynamix API
 import os
 import sys
 from dotenv import load_dotenv
+from colorama import Fore, Back, Style, init
+
+# Initialize colorama
+init(autoreset=True)
 
 # Import modules from the package
 from teamdynamix.auth.client import AuthClient
@@ -25,7 +29,14 @@ from teamdynamix.tickets.commands import (
     create_ticket_comment_command,
     select_application_command,
 )
-from teamdynamix.utils.cli import clear_screen
+from teamdynamix.utils.cli import (
+    clear_screen,
+    display_title,
+    divider,
+    box,
+    display_pixelated_tdx,
+    display_bordered_ascii,
+)
 
 
 def main_menu(auth):
@@ -36,34 +47,46 @@ def main_menu(auth):
 
     while True:
         clear_screen()
-        print("TeamDynamix API Tool")
-        print("-" * 40)
-        print(f"Environment: {auth.environment.title()}")
-        print(f"API URL: {auth.base_url}")
+        display_bordered_ascii()
 
-        # Get current user info, handle case where it might be None
+        # Status information in a box
         user_info = auth.get_current_user()
         user_name = "Unknown"
         if user_info:
             user_name = user_info.get("FullName", "Unknown")
-        print(f"User: {user_name}")
 
-        print("-" * 40)
-        print("PEOPLE OPERATIONS:")
-        print("1. Search for People")
-        print("2. Get Person Details by UID")
-        print("3. Get Person Details by Username")
-        print("4. Get UID by Username")
-        print()
-        print("TICKET OPERATIONS:")
-        print("5. Ticket Operations")
-        print()
-        print("SYSTEM:")
-        print("S. Switch Environment")
-        print("X. Exit")
+        status_info = (
+            f"Environment: {auth.environment.title()}\n"
+            f"API URL: {auth.base_url}\n"
+            f"User: {user_name}"
+        )
+        print(
+            f"{Fore.CYAN}{box(status_info, width=60, style='rounded')}{Style.RESET_ALL}"
+        )
         print()
 
-        choice = input("Select an option: ").strip().lower()
+        # Menu options
+        print(f"{Fore.MAGENTA}{Style.BRIGHT}PEOPLE OPERATIONS:{Style.RESET_ALL}")
+        print(f"{Fore.WHITE}1. {Fore.LIGHTBLUE_EX}Search for People{Style.RESET_ALL}")
+        print(
+            f"{Fore.WHITE}2. {Fore.LIGHTBLUE_EX}Get Person Details by UID{Style.RESET_ALL}"
+        )
+        print(
+            f"{Fore.WHITE}3. {Fore.LIGHTBLUE_EX}Get Person Details by Username{Style.RESET_ALL}"
+        )
+        print(f"{Fore.WHITE}4. {Fore.LIGHTBLUE_EX}Get UID by Username{Style.RESET_ALL}")
+        print()
+        print(f"{Fore.MAGENTA}{Style.BRIGHT}TICKET OPERATIONS:{Style.RESET_ALL}")
+        print(f"{Fore.WHITE}5. {Fore.LIGHTBLUE_EX}Ticket Operations{Style.RESET_ALL}")
+        print()
+        print(f"{Fore.MAGENTA}{Style.BRIGHT}SYSTEM:{Style.RESET_ALL}")
+        print(f"{Fore.WHITE}S. {Fore.LIGHTBLUE_EX}Switch Environment{Style.RESET_ALL}")
+        print(f"{Fore.WHITE}X. {Fore.LIGHTBLUE_EX}Exit{Style.RESET_ALL}")
+        print()
+
+        choice = (
+            input(f"{Fore.GREEN}Select an option: {Style.RESET_ALL}").strip().lower()
+        )
 
         # People operations
         if choice == "1":
@@ -85,8 +108,8 @@ def main_menu(auth):
         elif choice == "x":
             return False  # Signal to exit
         else:
-            print("Invalid selection. Please try again.")
-            input("\nPress Enter to continue...")
+            print(f"{Fore.RED}Invalid selection. Please try again.{Style.RESET_ALL}")
+            input(f"\n{Fore.YELLOW}Press Enter to continue...{Style.RESET_ALL}")
 
 
 def main():
@@ -96,9 +119,9 @@ def main():
 
     # Welcome message
     clear_screen()
-    print("Welcome to TeamDynamix API Tool")
-    print("=" * 40)
-    print("This tool allows you to interact with the TeamDynamix API.")
+    display_bordered_ascii()
+    welcome_text = "Welcome to TDX Python CLI. This tool allows you to interact with the TeamDynamix API."
+    print(f"{Fore.CYAN}{box(welcome_text, width=60, style='double')}{Style.RESET_ALL}")
     print()
 
     switch_env = True
@@ -109,7 +132,7 @@ def main():
         # Authenticate
         auth = AuthClient.authenticate(environment)
         if not auth:
-            input("\nPress Enter to try again...")
+            input(f"\n{Fore.YELLOW}Press Enter to try again...{Style.RESET_ALL}")
             continue
 
         # Show main menu
@@ -117,8 +140,9 @@ def main():
 
     # Goodbye message
     clear_screen()
-    print("Thank you for using TeamDynamix API Tool")
-    print("=" * 40)
+    display_bordered_ascii()
+    goodbye_text = "Thank you for using TDX Python CLI. Goodbye!"
+    print(f"{Fore.CYAN}{box(goodbye_text, width=60, style='rounded')}{Style.RESET_ALL}")
     return 0
 
 
